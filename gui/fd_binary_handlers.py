@@ -7,6 +7,7 @@ import os
 import subprocess
 import tempfile
 import shlex
+import sys
 
 
 """Global variables indicating end directory names."""
@@ -299,7 +300,10 @@ class FastDmCdfHanlder(QObject):
         f = tempfile.NamedTemporaryFile()
 
         # Spawn plot-cdf subprocess with funcArgs
-        p = subprocess.Popen(shlex.split(procArg), stdout=f, stderr=f)
+        if sys.platform.startswith('win'):
+            p = subprocess.Popen(procArg, stdout=f, stderr=f)
+        else:
+            p = subprocess.Popen(shlex.split(procArg), stdout=f, stderr=f)
 
         # Wait for it to finish (very fast, but better not start 100 processes...)
         p.wait()
