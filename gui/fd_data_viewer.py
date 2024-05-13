@@ -179,7 +179,7 @@ class FastDmDataViewer(QTableWidget):
         try:
             data = pd.read_csv(self._model.session['datafiles'][fileIndex],
                                                     # delim_whitespace=True,
-                                                    sep='\s+',
+                                                    sep=r'\s+',
                                                     engine='python',
                                                     header=0,
                                                     usecols=range(len(self._model.session['columns'])))
