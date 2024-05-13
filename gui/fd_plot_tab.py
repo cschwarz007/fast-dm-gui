@@ -87,7 +87,8 @@ class FastDmPlotter(QObject):
         if len(self.fileIndexes) > 0:
             self.figure.tight_layout()
 
-        self.figure.canvas.set_window_title('Test')
+        #self.figure.canvas.set_window_title('Test')
+        self.figure.canvas.setWindowTitle('Test')
 
         # Refresh canvas
         self.canvas.draw()

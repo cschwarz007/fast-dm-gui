@@ -1,6 +1,7 @@
 from collections import OrderedDict
 import copy
 import os
+import sys
 
 
 class FastDmModel:
@@ -27,25 +28,46 @@ class FastDmModel:
                             'jobs': 1}
 
         # ===== Group session attributes ===== #
-        self.session = {'datafiles': [],
-                        'columns': [],
-                        'RESPONSE': {'idx': None, 'name': None},
-                        'TIME': {'idx': None, 'name': None},
-                        'sessionname': None,
-                        'outputdir': None,
-                        'fastdmpath':
-                            os.path.dirname(os.path.realpath(__file__)) +
-                            '{0}fast-dm-bin{0}fast-dm.exe'.format(os.sep),
-                        'plotcdfpath':
-                            os.path.dirname(os.path.realpath(__file__)) +
-                            '{0}fast-dm-bin{0}plot-cdf.exe'.format(os.sep),
-                        'plotdensepath':
-                            os.path.dirname(os.path.realpath(__file__)) +
-                            '{0}fast-dm-bin{0}plot-density.exe'.format(os.sep),
-                        'constructpath':
-                            os.path.dirname(os.path.realpath(__file__)) +
-                            '{0}fast-dm-bin{0}construct-samples.exe'.format(os.sep)
-                        }
+        if sys.platform.startswith('win'):  
+            self.session = {'datafiles': [],
+                            'columns': [],
+                            'RESPONSE': {'idx': None, 'name': None},
+                            'TIME': {'idx': None, 'name': None},
+                            'sessionname': None,
+                            'outputdir': None,
+                            'fastdmpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}fast-dm.exe'.format(os.sep),
+                            'plotcdfpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}plot-cdf.exe'.format(os.sep),
+                            'plotdensepath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}plot-density.exe'.format(os.sep),
+                            'constructpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}construct-samples.exe'.format(os.sep)
+                            }
+        else:
+            self.session = {'datafiles': [],
+                            'columns': [],
+                            'RESPONSE': {'idx': None, 'name': None},
+                            'TIME': {'idx': None, 'name': None},
+                            'sessionname': None,
+                            'outputdir': None,
+                            'fastdmpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}fast-dm'.format(os.sep),
+                            'plotcdfpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}plot-cdf'.format(os.sep),
+                            'plotdensepath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}plot-density'.format(os.sep),
+                            'constructpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}construct-samples'.format(os.sep)
+                            }         
 
         # ===== Group plot attributes ===== #
         self.plot = {'cdffiles': []}

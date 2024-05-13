@@ -6,6 +6,7 @@ import numpy as np
 import os
 import subprocess
 import tempfile
+import shlex
 
 
 """Global variables indicating end directory names."""
@@ -298,7 +299,7 @@ class FastDmCdfHanlder(QObject):
         f = tempfile.NamedTemporaryFile()
 
         # Spawn plot-cdf subprocess with funcArgs
-        p = subprocess.Popen(procArg, stdout=f, stderr=f)
+        p = subprocess.Popen(shlex.split(procArg), stdout=f, stderr=f)
 
         # Wait for it to finish (very fast, but better not start 100 processes...)
         p.wait()
@@ -441,6 +442,7 @@ class FastDmCdfHanlder(QObject):
                 self._deletePredictedCdfFileName(self._getPredictedCdfFileName(file, cdfDir))
 
             except OSError as e:
+                self.consoleLog.emit('Error! Code: {c}, Message, {m}'.format(c = type(e).__name__, m = str(e)))
                 self.consoleLog.emit('Could not calculate cdf values for ' + file)
 
     def _getPredictedCdfFileName(self, fname, cdfDir):

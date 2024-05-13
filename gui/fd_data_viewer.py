@@ -178,7 +178,8 @@ class FastDmDataViewer(QTableWidget):
         # Try to catch any runtime errors like changing the file etc.
         try:
             data = pd.read_csv(self._model.session['datafiles'][fileIndex],
-                                                    delim_whitespace=True,
+                                                    # delim_whitespace=True,
+                                                    sep='\s+',
                                                     engine='python',
                                                     header=0,
                                                     usecols=range(len(self._model.session['columns'])))

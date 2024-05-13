@@ -22,7 +22,8 @@ if __name__ == '__main__':
     #               SET APP ID SO ICON IS VISIBLE                     #
     # =============================================================== #
     myappid = 'heidelberg.university.fast-dm.30.2.2'
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+    if sys.platform.startswith('win'):    
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
     # =============================================================== #
     #                   CHANGE LOCALE SETTINGS                        #
