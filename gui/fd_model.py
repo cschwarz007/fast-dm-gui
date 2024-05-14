@@ -2,7 +2,7 @@ from collections import OrderedDict
 import copy
 import os
 import sys
-
+import platform
 
 class FastDmModel:
 
@@ -28,7 +28,7 @@ class FastDmModel:
                             'jobs': 1}
 
         # ===== Group session attributes ===== #
-        if sys.platform.startswith('win'):  
+        if platform.system() == 'Windows':  
             self.session = {'datafiles': [],
                             'columns': [],
                             'RESPONSE': {'idx': None, 'name': None},
@@ -48,7 +48,27 @@ class FastDmModel:
                                 os.path.dirname(os.path.realpath(__file__)) +
                                 '{0}fast-dm-bin{0}construct-samples.exe'.format(os.sep)
                             }
-        else:
+        elif platform.system() == 'Darwin':
+            self.session = {'datafiles': [],
+                            'columns': [],
+                            'RESPONSE': {'idx': None, 'name': None},
+                            'TIME': {'idx': None, 'name': None},
+                            'sessionname': None,
+                            'outputdir': None,
+                            'fastdmpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}fast-dm_mac'.format(os.sep),
+                            'plotcdfpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}plot-cdf_mac'.format(os.sep),
+                            'plotdensepath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}plot-density_mac'.format(os.sep),
+                            'constructpath':
+                                os.path.dirname(os.path.realpath(__file__)) +
+                                '{0}fast-dm-bin{0}construct-samples_mac'.format(os.sep)
+                            }
+        elif platform.system() == 'Linux':
             self.session = {'datafiles': [],
                             'columns': [],
                             'RESPONSE': {'idx': None, 'name': None},
@@ -67,7 +87,11 @@ class FastDmModel:
                             'constructpath':
                                 os.path.dirname(os.path.realpath(__file__)) +
                                 '{0}fast-dm-bin{0}construct-samples'.format(os.sep)
-                            }         
+                            }    
+        else: #unsupported     
+             text = 'This operating system is not supported!'
+             msg.critical(parent, errorTitle, text)
+
 
         # ===== Group plot attributes ===== #
         self.plot = {'cdffiles': []}

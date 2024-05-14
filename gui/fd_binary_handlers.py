@@ -8,7 +8,7 @@ import subprocess
 import tempfile
 import shlex
 import sys
-
+import platform
 
 """Global variables indicating end directory names."""
 PARAMETERSDIR = 'individual_estimates'
